@@ -27,15 +27,18 @@
         $(this).attr("src", baseUrl + $(this).attr("src"));
       });
       $("body")
-        .on("focus", "input[type=text], input[type=password], input:not([type])", onFocus)
-        .on("blur", "input[type=text], input[type=password], input:not([type])", onBlur);
-      inputList = $("input[type=text], input[type=password], input:not([type])");
+        .on("focus", "input[type=text], input[type=tel], textarea, input[type=password], input:not([type])", onFocus)
+        .on("blur", "input[type=text], input[type=tel], textarea, input[type=password], input:not([type])", onBlur);
+      inputList = $("input[type=text], input[type=tel], textarea, input[type=password], input:not([type])");
       keyboard.appendTo("body");
     });
   }
 
   function onFocus(e) {
     input = this;
+    if ($(input).is('[readonly]')) {
+      return false;
+    }
     $(input).bind("input.tr", function(e2) {
       $("#tk-inputtext").html($(input).val());
     });
